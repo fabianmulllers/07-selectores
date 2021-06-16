@@ -1,0 +1,69 @@
+<h1>Selectores anidado</h1>
+<hr>
+<form [formGroup]="miFormulario" (ngSubmit)="guardar()">
+    
+    <!-- regiones -->
+    <div class="row">
+        <div class="col">
+            <label for="form-label">Continente</label>
+            <select 
+                class="form-control  mb-3"
+                formControlName="region">
+                <option value=""> -- Selecciones continente --</option>
+                <option *ngFor="let region of regiones; let i = index;"
+                    [value]="region | lowercase" > {{ region }}</option>
+
+            </select>
+        </div>
+    </div>
+
+    <!-- paises -->
+    <div class="row" *ngIf="paises.length !== 0">
+        <div class="col">
+            <label for="form-label">Paises :</label>
+            <select 
+                class="form-control  mb-3"
+                formControlName="pais">
+                <option value=""> -- Seleccione pais --</option>
+                <option *ngFor="let pais of paises; let i = index;"
+                    [value]="pais.alpha2Code" > {{ pais.name }}</option>
+
+            </select>
+        </div>
+    </div>
+
+    <!-- fronteras -->
+    <div class="row" *ngIf="fronteras.length !== 0">
+        <div class="col">
+            <label for="form-label">Fronteras :</label>
+            <select 
+                class="form-control  mb-3"
+                formControlName="frontera">
+                <option value=""> -- Seleccione pais fronteriso--</option>
+                <option *ngFor="let frontera of fronteras" 
+                    [value]="frontera.alpha2Code">{{frontera.name}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="cargando">
+        <div class="col">
+            <div class="alert alert-primary">
+                Cargando ...
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end">
+                Seleccionar
+            </button>
+        </div>
+    </div>
+
+</form>
+
+<h3>Frmulario</h3>
+<pre> Valid {{miFormulario.valid}} </pre>
+<pre> {{miFormulario.value | json}} </pre>
